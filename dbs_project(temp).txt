@@ -1,0 +1,271 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.24 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use dbs;
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_dbs         |
++-----------------------+
+| appointment           |
+| appointment_status    |
+| doctor                |
+| doctor_availability   |
+| doctor_specialisation |
+| insurance_provider    |
+| patient_details       |
++-----------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from doctor_specialization;
+ERROR 1146 (42S02): Table 'dbs.doctor_specialization' doesn't exist
+mysql> select * from doctor_specialisation;
++----+------------------------+
+| id | specialisation_in      |
++----+------------------------+
+|  1 | General Medicine       |
+|  2 | Allergy and Immunology |
+|  3 | Surgeon                |
+|  4 | Gynecologists          |
+|  5 | Neurology              |
++----+------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from doctor;
++----+------------+-----------+--------------+----------------+-------------------+
+| id | first_name | last_name | phone_number | email          | specialisation_id |
++----+------------+-----------+--------------+----------------+-------------------+
+|  1 | Steve      | John      | 8765421321   | steve@xyz.com  |                 1 |
+|  2 | Robert     | Jacob     | 8909812345   | robert@xyz.com |                 2 |
+|  3 | Brian      | Flair     | 7890865765   | brian@xyz.com  |                 3 |
+|  4 | Seth       | Dolph     | 9806543212   | seth@xyz.com   |                 4 |
+|  5 | Dean       | Stuart    | 8954312098   | dean@xyz.com   |                 5 |
++----+------------+-----------+--------------+----------------+-------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from doctor_availability;
++----+-----------+--------------+---------------------+---------------------+--------------+---------------------+
+| id | doctor_id | days_in_week | starting_time       | ending_time         | open_for_day | minutes_per_patient |
++----+-----------+--------------+---------------------+---------------------+--------------+---------------------+
+|  1 |         1 | Monday       | 2009-12-01 08:00:00 | 2009-12-01 18:00:00 | Yes          |                  30 |
+|  2 |         2 | Friday       | 2009-12-05 10:30:00 | 2009-12-05 16:00:00 | Yes          |                  30 |
+|  3 |         3 | Tuesday      | 2009-12-02 13:00:00 | 2009-12-02 15:30:00 | Yes          |                  30 |
+|  4 |         4 | Wednesday    | 2009-12-04 08:00:00 | 2009-12-04 18:00:00 | Yes          |                  30 |
+|  5 |         5 | Saturday     | 2009-12-07 09:30:00 | 2009-12-07 16:35:00 | Yes          |                  30 |
+|  6 |         5 | Friday       | 2009-12-05 09:30:00 | 2009-12-05 16:35:00 | Yes          |                  30 |
++----+-----------+--------------+---------------------+---------------------+--------------+---------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from insurance_provider;
++----+--------------------+--------------+------------------+
+| id | provider_name      | phone_number | email            |
++----+--------------------+--------------+------------------+
+|  1 | United Insurance   | 9898987865   | united@xyz.com   |
+|  2 | Med Life Insurance | 8765432096   | medlife@xyz.com  |
+|  3 | Stanford Insurance | 9807654324   | stanford@xyz.com |
++----+--------------------+--------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from patient_details;
++----+------------+-----------+--------------+-----------------+-----------------------+--------------+-----------------+
+| id | first_name | last_name | phone_number | email           | insurance_provider_id | insurance_id | mailing_address |
++----+------------+-----------+--------------+-----------------+-----------------------+--------------+-----------------+
+|  1 | Mark       | Wahlberg  | 7655432109   | mark@xyz.com    |                     1 | 5678         | abcd            |
+|  2 | John       | Snow      | 9012345432   | john@xyz.com    |                     2 | 9088         | qwert           |
+|  3 | Goerge     | Wick      | 7123456091   | george@xyz.com  |                     3 | 4568         | rstu            |
+|  4 | Parker     | Kyle      | 9216734058   | parker@xyz.com  |                     1 | 1201         | bcnm            |
+|  5 | King       | Chloe     | 7123456081   | king@xyz.com    |                     2 | 0967         | adfg            |
+|  6 | Richard    | Joey      | 9671267891   | richard@xyz.com |                     3 | 8765         | lkop            |
+|  7 | Bill       | Benz      | 8012670987   | bill@xyz.com    |                     2 | 2569         | poiu            |
+|  8 | Stan       | Ford      | 7123450985   | stan@xyz.com    |                     1 | 3254         | jklo            |
+|  9 | Nulan      | Lord      | 9078904596   | nulan@xyz.com   |                     3 | 1478         | dfgh            |
+| 10 | Ash        | Rant      | 7655432108   | ash@xyz.com     |                     3 | 9632         | asdf            |
++----+------------+-----------+--------------+-----------------+-----------------------+--------------+-----------------+
+10 rows in set (0.00 sec)
+
+mysql> select * from appointment;
++----+-----------+------------+-----------------------+---------------------+---------------------+--------------------+-------------------------+
+| id | doctor_id | patient_id | appointment_status_id | start_time          | end_time            | comment_by_patient | comment_by_doctor       |
++----+-----------+------------+-----------------------+---------------------+---------------------+--------------------+-------------------------+
+|  1 |         1 |          1 |                     1 | 2009-12-01 08:30:00 | 2009-12-01 09:00:00 | Fever              | Paracetamol_drug        |
+|  2 |         1 |          2 |                     1 | 2009-12-01 12:30:00 | 2009-12-01 13:00:00 | Cold               | Afrin_drug              |
+|  3 |         2 |          4 |                     1 | 2009-12-05 12:40:00 | 2009-12-05 13:10:00 | Allergy            | Cetirizine_drug         |
+|  4 |         2 |          3 |                     1 | 2009-12-05 14:00:00 | 2009-12-05 14:30:00 | Diabetes           | Insulin_drug            |
+|  5 |         3 |          7 |                     1 | 2009-12-02 13:00:00 | 2009-12-02 13:30:00 | Pain in heart      | Surgery_recommended     |
+|  6 |         4 |          6 |                     1 | 2009-12-04 10:00:00 | 2009-12-04 10:30:00 | Infertility        | Can go with IVF         |
+|  7 |         3 |          5 |                     1 | 2009-12-02 15:00:00 | 2009-12-05 15:30:00 | Replace hand       | Surgery_recommended     |
+|  8 |         4 |          8 |                     2 | 2009-12-04 12:00:00 | 2009-12-04 12:30:00 | Pelvic Pain        | NULL                    |
+|  9 |         5 |         10 |                     3 | 2009-12-05 09:45:00 | 2009-12-05 10:15:00 | Stroke             | Emergency IV medication |
+| 10 |         5 |          9 |                     1 | 2009-12-05 14:00:00 | 2009-12-05 14:30:00 | Alzheimers         | Razadyne_drug           |
++----+-----------+------------+-----------------------+---------------------+---------------------+--------------------+-------------------------+
+10 rows in set (0.00 sec)
+
+
+mysql> select * from appointment_status;
++----+-----------+--------------+
+| id | status    | created_date |
++----+-----------+--------------+
+|  1 | Confirmed | 2009-12-01   |
+|  2 | Cancelled | 2009-12-01   |
+|  3 | Pending   | 2009-12-01   |
++----+-----------+--------------+
+3 rows in set (0.00 sec)
+
+mysql>#1 All confirmed appoinments
+mysql>  select p.first_name as 'Patient_first_name',p.last_name as 'Patient_last_name',a.start_time as 'Appointment_start',a.end_time as 'Appointment_end',c.status as 'Appointment_status',d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name' from  appointment a,doctor d,patient_details p,appointment_status c
+    ->     where a.doctor_id=d.id and a.appointment_status_id=c.id and a.patient_id=p.id and c.status='confirmed';
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Patient_first_name | Patient_last_name | Appointment_start   | Appointment_end     | Appointment_status | Doctor_first_name | Doctor_last_name |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Mark               | Wahlberg          | 2009-12-01 08:30:00 | 2009-12-01 09:00:00 | Confirmed          | Steve             | John             |
+| John               | Snow              | 2009-12-01 12:30:00 | 2009-12-01 13:00:00 | Confirmed          | Steve             | John             |
+| Parker             | Kyle              | 2009-12-05 12:40:00 | 2009-12-05 13:10:00 | Confirmed          | Robert            | Jacob            |
+| Goerge             | Wick              | 2009-12-05 14:00:00 | 2009-12-05 14:30:00 | Confirmed          | Robert            | Jacob            |
+| Bill               | Benz              | 2009-12-02 13:00:00 | 2009-12-02 13:30:00 | Confirmed          | Brian             | Flair            |
+| Richard            | Joey              | 2009-12-04 10:00:00 | 2009-12-04 10:30:00 | Confirmed          | Seth              | Dolph            |
+| King               | Chloe             | 2009-12-02 15:00:00 | 2009-12-05 15:30:00 | Confirmed          | Brian             | Flair            |
+| Nulan              | Lord              | 2009-12-05 14:00:00 | 2009-12-05 14:30:00 | Confirmed          | Dean              | Stuart           |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+8 rows in set (0.00 sec)
+
+
+mysql>#2 All cancelled appoinments
+
+mysql>  select p.first_name as 'Patient_first_name',p.last_name as 'Patient_last_name',a.start_time as 'Appointment_start',a.end_time as 'Appointment_end',c.status as 'Appointment_status',d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name' from  appointment a,doctor d,patient_details p,appointment_status c
+    ->     where a.doctor_id=d.id and a.appointment_status_id=c.id and a.patient_id=p.id and c.status='cancelled';
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Patient_first_name | Patient_last_name | Appointment_start   | Appointment_end     | Appointment_status | Doctor_first_name | Doctor_last_name |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Stan               | Ford              | 2009-12-04 12:00:00 | 2009-12-04 12:30:00 | Cancelled          | Seth              | Dolph            |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+1 row in set (0.00 sec)
+
+
+mysql>#3 All pending appoinments
+
+mysql>    select p.first_name as 'Patient_first_name',p.last_name as 'Patient_last_name',a.start_time as 'Appointment_start',a.end_time as 'Appointment_end',c.status as 'Appointment_status',d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name' from  appointment a,doctor d,patient_details p,appointment_status c
+    ->     where a.doctor_id=d.id and a.appointment_status_id=c.id and a.patient_id=p.id and c.status='pending';
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Patient_first_name | Patient_last_name | Appointment_start   | Appointment_end     | Appointment_status | Doctor_first_name | Doctor_last_name |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+| Ash                | Rant              | 2009-12-05 09:45:00 | 2009-12-05 10:15:00 | Pending            | Dean              | Stuart           |
++--------------------+-------------------+---------------------+---------------------+--------------------+-------------------+------------------+
+1 row in set (0.00 sec)
+
+mysql>#4 Doctor and thier specialisation
+
+mysql>    select d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name',s.specialisation_in as 'Specialisation' from (doctor d) join (doctor_specialisation s) using (id);
++-------------------+------------------+------------------------+
+| Doctor_first_name | Doctor_last_name | Specialisation         |
++-------------------+------------------+------------------------+
+| Steve             | John             | General Medicine       |
+| Robert            | Jacob            | Allergy and Immunology |
+| Brian             | Flair            | Surgeon                |
+| Seth              | Dolph            | Gynecologists          |
+| Dean              | Stuart           | Neurology              |
++-------------------+------------------+------------------------+
+5 rows in set (0.00 sec)
+
+mysql>#5 Doctor availability in ascending order of first name
+
+
+mysql> select d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name',s.specialisation_in as 'Specialisation',a.starting_time as 'Start time',a.ending_time as 'End time'
+    ->  from doctor d,doctor_specialisation s,doctor_availability a where d.specialisation_id=s.id and a.doctor_id=d.id order by d.first_name;
++-------------------+------------------+------------------------+---------------------+---------------------+
+| Doctor_first_name | Doctor_last_name | Specialisation         | Start time          | End time            |
++-------------------+------------------+------------------------+---------------------+---------------------+
+| Brian             | Flair            | Surgeon                | 2009-12-02 13:00:00 | 2009-12-02 15:30:00 |
+| Dean              | Stuart           | Neurology              | 2009-12-07 09:30:00 | 2009-12-07 16:35:00 |
+| Dean              | Stuart           | Neurology              | 2009-12-05 09:30:00 | 2009-12-05 16:35:00 |
+| Robert            | Jacob            | Allergy and Immunology | 2009-12-05 10:30:00 | 2009-12-05 16:00:00 |
+| Seth              | Dolph            | Gynecologists          | 2009-12-04 08:00:00 | 2009-12-04 18:00:00 |
+| Steve             | John             | General Medicine       | 2009-12-01 08:00:00 | 2009-12-01 18:00:00 |
++-------------------+------------------+------------------------+---------------------+---------------------+
+6 rows in set (0.04 sec)
+
+mysql>#6 Doctors available more than once a week
+
+
+mysql> select d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name' from doctor d ,doctor_availability a where d.id=a.doctor_id group by d.first_name having count(a.days_in_week)>1;
++-------------------+------------------+
+| Doctor_first_name | Doctor_last_name |
++-------------------+------------------+
+| Dean              | Stuart           |
++-------------------+------------------+
+1 row in set (0.00 sec)
+
+mysql>#7 Number of confirmed appointment doctor has
+
+
+mysql> select d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name',count(d.first_name) as 'Number of patients' from appointment a,doctor d,appointment_status c,patient_details p
+    ->      where a.doctor_id=d.id and a.appointment_status_id=c.id and a.patient_id=p.id and c.status='confirmed' group by d.first_name;
++-------------------+------------------+--------------------+
+| Doctor_first_name | Doctor_last_name | Number of patients |
++-------------------+------------------+--------------------+
+| Steve             | John             |                  2 |
+| Robert            | Jacob            |                  2 |
+| Brian             | Flair            |                  2 |
+| Seth              | Dolph            |                  1 |
+| Dean              | Stuart           |                  1 |
++-------------------+------------------+--------------------+
+5 rows in set (0.00 sec)
+
+mysql>#8 Patients and thier insurance providers
+
+mysql> select p.first_name as 'Patient_first_name',p.last_name as 'Patient_last_name',b.provider_name,p.insurance_id from patient_details p,insurance_provider b where p.insurance_provider_id=b.id;
++--------------------+-------------------+--------------------+--------------+
+| Patient_first_name | Patient_last_name | provider_name      | insurance_id |
++--------------------+-------------------+--------------------+--------------+
+| Mark               | Wahlberg          | United Insurance   | 5678         |
+| Parker             | Kyle              | United Insurance   | 1201         |
+| Stan               | Ford              | United Insurance   | 3254         |
+| John               | Snow              | Med Life Insurance | 9088         |
+| King               | Chloe             | Med Life Insurance | 0967         |
+| Bill               | Benz              | Med Life Insurance | 2569         |
+| Goerge             | Wick              | Stanford Insurance | 4568         |
+| Richard            | Joey              | Stanford Insurance | 8765         |
+| Nulan              | Lord              | Stanford Insurance | 1478         |
+| Ash                | Rant              | Stanford Insurance | 9632         |
++--------------------+-------------------+--------------------+--------------+
+10 rows in set (0.04 sec)
+
+mysql>#9 Number of patients per provider
+
+
+mysql> select a.provider_name,count(p.first_name) from patient_details p,insurance_provider a where p.insurance_provider_id=a.id group by provider_name;
++--------------------+---------------------+
+| provider_name      | count(p.first_name) |
++--------------------+---------------------+
+| United Insurance   |                   3 |
+| Med Life Insurance |                   3 |
+| Stanford Insurance |                   4 |
++--------------------+---------------------+
+3 rows in set (0.00 sec)
+
+
+mysql>#10 Neurology doctor availability
+
+mysql> select d.first_name as 'Doctor_first_name',d.last_name as 'Doctor_last_name',a.starting_time as 'Start time',a.ending_time as 'End time' from doctor d,doctor_specialisation b,doctor_availability a
+    ->   where d.specialisation_id=b.id and a.doctor_id=d.id and b.specialisation_in='Neurology';
++-------------------+------------------+---------------------+---------------------+
+| Doctor_first_name | Doctor_last_name | Start time          | End time            |
++-------------------+------------------+---------------------+---------------------+
+| Dean              | Stuart           | 2009-12-07 09:30:00 | 2009-12-07 16:35:00 |
+| Dean              | Stuart           | 2009-12-05 09:30:00 | 2009-12-05 16:35:00 |
++-------------------+------------------+---------------------+---------------------+
+2 rows in set (0.04 sec)
+
+
+ 
+
+
